@@ -71,8 +71,12 @@ npm run dev
 
 ### Шаг 1.3: Установить Tailwind CSS
 
+**⚠️ Важно:** Tailwind CSS v4 пока в beta и может иметь проблемы совместимости с Vite 7. Рекомендуем использовать стабильный Tailwind CSS v3.
+
+**Вариант 1: Tailwind CSS v3 (рекомендуется, стабильный)**
+
 ```bash
-npm install -D tailwindcss postcss autoprefixer
+npm install -D tailwindcss@^3.4.1 postcss@^8.4.35 autoprefixer@^10.4.17
 npx tailwindcss init -p
 ```
 
@@ -102,7 +106,47 @@ export default {
 @tailwind utilities;
 ```
 
+**Вариант 2: Tailwind CSS v4 (если нужна последняя версия)**
+
+Если хотите использовать v4, убедитесь что используете Vite 6 или ниже:
+
+```bash
+# Проверить версию Vite
+npm list vite
+
+# Если Vite 7, понизить до 6
+npm install -D vite@^6.0.0
+
+# Установить Tailwind v4
+npm install -D tailwindcss@^4.0.0 @tailwindcss/vite@^4.0.0
+```
+
+**Открыть файл:** `vite.config.ts`
+
+**Добавить импорт и плагин:**
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react-swc'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(),
+  ],
+})
+```
+
+**Открыть файл:** `src/index.css`
+
+**Заменить ВСЁ содержимое на:**
+```css
+@import "tailwindcss";
+```
+
 **Проверить:** `npm run dev` - страница должна выглядеть так же
+
+**Рекомендация:** Используйте Вариант 1 (v3) для стабильной работы без проблем совместимости.
 
 ---
 
