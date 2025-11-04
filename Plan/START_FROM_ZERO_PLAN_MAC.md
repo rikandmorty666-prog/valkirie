@@ -69,10 +69,56 @@ npm run dev
 
 **Остановить сервер:** `Ctrl + C` в терминале (или `Cmd + C`)
 
-### Шаг 1.3: Установить Tailwind CSS v4
+### Шаг 1.3: Установить Tailwind CSS
+
+**⚠️ Важно:** Tailwind CSS v4 пока в beta и может иметь проблемы совместимости с Vite 7. Рекомендуем использовать стабильный Tailwind CSS v3.
+
+**Вариант 1: Tailwind CSS v3 (рекомендуется, стабильный)**
 
 ```bash
-npm install -D tailwindcss@next @tailwindcss/vite@next
+npm install -D tailwindcss@^3.4.1 postcss@^8.4.35 autoprefixer@^10.4.17
+npx tailwindcss init -p
+```
+
+**Открыть файл:** `tailwind.config.js`
+
+**Заменить на:**
+```javascript
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+**Открыть файл:** `src/index.css`
+
+**Заменить ВСЁ содержимое на:**
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+**Вариант 2: Tailwind CSS v4 (если нужна последняя версия)**
+
+Если хотите использовать v4, убедитесь что используете Vite 6 или ниже:
+
+```bash
+# Проверить версию Vite
+npm list vite
+
+# Если Vite 7, понизить до 6
+npm install -D vite@^6.0.0
+
+# Установить Tailwind v4
+npm install -D tailwindcss@^4.0.0 @tailwindcss/vite@^4.0.0
 ```
 
 **Открыть файл:** `vite.config.ts`
@@ -98,18 +144,9 @@ export default defineConfig({
 @import "tailwindcss";
 ```
 
-**Примечание:** В Tailwind v4 конфигурация через CSS, а не через JS файл. Если нужна кастомная конфигурация, можно добавить в `src/index.css`:
-
-```css
-@import "tailwindcss";
-
-/* Кастомные настройки (опционально) */
-@theme {
-  /* Ваши кастомные значения */
-}
-```
-
 **Проверить:** `npm run dev` - страница должна выглядеть так же
+
+**Рекомендация:** Используйте Вариант 1 (v3) для стабильной работы без проблем совместимости.
 
 ---
 
